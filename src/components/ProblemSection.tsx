@@ -51,6 +51,20 @@ const pains = [
     title: "複数施設の状況がリアルタイムに見えない",
     sub:   "各施設からの報告を待つだけで、本部から全体を把握できない",
   },
+  {
+    Icon:  ClipboardList,
+    color: "#DC2626",
+    bg:    "#FEF2F2",
+    title: "監査のたびに受講記録を手作業でまとめている",
+    sub:   "システムがないため、毎回ゼロから集計・整理しなければならない",
+  },
+  {
+    Icon:  BookOpen,
+    color: "#D97706",
+    bg:    "#FFFBEB",
+    title: "法改正があっても研修内容をいつ更新すればいいかわからない",
+    sub:   "厚生労働省の通知を見落としがちで、対応が後手に回りやすい",
+  },
 ];
 
 export default function ProblemSection() {

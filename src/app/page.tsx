@@ -1,20 +1,20 @@
-import HeroSection         from "@/components/HeroSection";
-import ProblemSection      from "@/components/ProblemSection";
-import ScrollStorySection  from "@/components/ScrollStorySection";
-import ValueSection        from "@/components/ValueSection";
-import MidCtaSection       from "@/components/MidCtaSection";
-import FeaturesSection     from "@/components/FeaturesSection";
-import TargetsSection      from "@/components/TargetsSection";
-import CtaSection          from "@/components/CtaSection";
+import HeroSection      from "@/components/HeroSection";
+import ProblemSection   from "@/components/ProblemSection";
+import ValueSection     from "@/components/ValueSection";
+import CoursesSection   from "@/components/CoursesSection";
+import PricingSection   from "@/components/PricingSection";
+import FeaturesSection  from "@/components/FeaturesSection";
+import TargetsSection   from "@/components/TargetsSection";
+import CtaSection       from "@/components/CtaSection";
 
 export default function Home() {
   return (
     <main>
       <HeroSection />
       <ProblemSection />
-      <ScrollStorySection />
       <ValueSection />
-      <MidCtaSection />
+      <CoursesSection />
+      <PricingSection />
       <FeaturesSection />
       <TargetsSection />
       <CtaSection />

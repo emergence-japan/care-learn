@@ -5,9 +5,9 @@ import { heroContainer, heroItem } from "@/lib/motion";
 import LmsScreenMockup from "./LmsScreenMockup";
 
 const kpis = [
-  { num: "100%",      label: "法定研修要件を網羅" },
-  { num: "0分",       label: "監査書類の準備時間" },
-  { num: "3ステップ", label: "で学びが現場に定着" },
+  { num: "全6科目",   label: "完全網羅 ── 厚生労働省の法定要件をすべてカバー" },
+  { num: "1クリック", label: "監査帳票 自動出力 ── 受講記録を即時帳票化" },
+  { num: "AI監視",    label: "法改正を自動検知してお知らせ" },
 ];
 
 export default function HeroSection() {
@@ -106,10 +106,10 @@ export default function HeroSection() {
                   backgroundClip:       "text",
                 }}
               >
-                法定研修の手間を、ゼロへ。
+                法定研修を、まるごとオンラインへ。
               </span>
               <br />
-              <span>学びを、本物へ。</span>
+              <span>監査も、法改正も、ぜんぶ対応。</span>
             </motion.h1>
 
             {/* Sub */}
@@ -133,13 +133,10 @@ export default function HeroSection() {
               style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}
             >
               <a href="/school-application" className="btn btn-cta btn-lg">
-                無料デモを申し込む
+                デモを見る
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </a>
-              <a href="#pain" className="btn btn-outline btn-lg">
-                課題を見る
               </a>
             </motion.div>
 
