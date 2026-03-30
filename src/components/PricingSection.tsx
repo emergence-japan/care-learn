@@ -21,13 +21,13 @@ const plans = [
       "サポート",
     ],
     note: null,
-    cta: "お問い合わせ・デモ申し込み",
+    cta: "お問い合わせ",
   },
   {
     id:        "standard",
     name:      "スタンダード",
     sub:       "ほとんどの施設が選ぶ主力プラン",
-    price:     "150,000",
+    price:     "120,000",
     unit:      "年間（税別）/ 1施設",
     highlight: true,
     badge:     "おすすめ",
@@ -41,15 +41,15 @@ const plans = [
     ],
     excludes: [],
     note: "監査対応と法改正通知がついて、年間わずか15万円。",
-    cta: "お問い合わせ・デモ申し込み",
+    cta: "お問い合わせ",
     strongItems: ["監査対応帳票 自動出力", "法改正AI通知"],
   },
   {
     id:        "enterprise",
-    name:      "法人プラン",
+    name:      "アドバンス",
     sub:       "複数施設を運営するグループ向け",
-    price:     "120,000〜",
-    unit:      "年間（税別）/ 1施設・3施設以上",
+    price:     "240,000",
+    unit:      "年間（税別）/ 1施設",
     highlight: false,
     badge:     null,
     includes: [
@@ -61,13 +61,13 @@ const plans = [
     ],
     excludes: [],
     note: "3施設以上で、1施設あたりの費用がさらにお得に。",
-    cta: "お問い合わせ・デモ申し込み",
+    cta: "お問い合わせ",
   },
 ] as const;
 
 export default function PricingSection() {
   return (
-    <section id="pricing" style={{ padding: "6rem 0", background: "var(--slate-50)" }}>
+    <section id="pricing" style={{ padding: "6rem 0", background: "#fff" }}>
       <div className="container">
 
         <FadeIn style={{ textAlign: "center", marginBottom: "3rem" }}>
@@ -92,16 +92,16 @@ export default function PricingSection() {
             <FadeIn key={plan.id} delay={i * 0.08}>
               <div
                 style={{
-                  position:     "relative",
-                  background:   plan.highlight ? "linear-gradient(160deg, var(--blue-900) 0%, var(--blue-700) 100%)" : "#fff",
-                  border:       plan.highlight ? "2px solid var(--blue-500)" : "1px solid var(--border)",
-                  borderRadius: "var(--r-xl)",
-                  padding:      plan.highlight ? "2rem" : "1.75rem",
-                  height:       "100%",
-                  boxSizing:    "border-box",
-                  color:        plan.highlight ? "#fff" : "var(--text)",
-                  boxShadow:    plan.highlight ? "0 8px 32px rgba(37,99,235,0.25)" : "var(--shadow-sm)",
-                  display:      "flex",
+                  position:      "relative",
+                  background:    plan.id === "lite" ? "#fff" : plan.id === "enterprise" ? "var(--blue-50)" : "var(--blue-900)",
+                  border:        plan.id === "lite" ? "2px solid var(--slate-200)" : plan.id === "enterprise" ? "2px solid var(--blue-300)" : "2px solid var(--blue-700)",
+                  borderRadius:  "var(--r-xl)",
+                  padding:       "1.75rem",
+                  height:        "100%",
+                  boxSizing:     "border-box",
+                  color:         plan.id === "standard" ? "#fff" : "var(--text)",
+                  boxShadow:     plan.id === "lite" ? "4px 4px 0 var(--slate-300)" : plan.id === "enterprise" ? "5px 5px 0 var(--blue-200)" : "6px 6px 0 rgba(0,0,0,0.3)",
+                  display:       "flex",
                   flexDirection: "column",
                 }}
               >
@@ -138,8 +138,7 @@ export default function PricingSection() {
                       fontSize:      "0.6875rem",
                       fontWeight:    700,
                       letterSpacing: "0.1em",
-                      opacity:       plan.highlight ? 0.7 : undefined,
-                      color:         plan.highlight ? "#fff" : "var(--text-3)",
+                      color:         plan.id === "standard" ? "rgba(255,255,255,0.6)" : "var(--text-3)",
                       marginBottom:  "0.375rem",
                     }}
                   >
@@ -149,7 +148,7 @@ export default function PricingSection() {
                     style={{
                       fontSize:   "1.1875rem",
                       fontWeight: 800,
-                      color:      plan.highlight ? "#fff" : "var(--text)",
+                      color:      plan.id === "standard" ? "#fff" : "var(--text)",
                     }}
                   >
                     {plan.name}
@@ -164,7 +163,7 @@ export default function PricingSection() {
                         fontSize:      "clamp(1.75rem, 3vw, 2.25rem)",
                         fontWeight:    900,
                         letterSpacing: "-0.04em",
-                        color:         plan.highlight ? "#fff" : "var(--blue-700)",
+                        color:         plan.id === "standard" ? "#fff" : "var(--blue-700)",
                       }}
                     >
                       ¥{plan.price}
@@ -174,7 +173,7 @@ export default function PricingSection() {
                     style={{
                       fontSize: "0.8rem",
                       opacity:  plan.highlight ? 0.7 : undefined,
-                      color:    plan.highlight ? "#fff" : "var(--text-3)",
+                      color:    plan.id === "standard" ? "rgba(255,255,255,0.5)" : "var(--text-3)",
                       marginTop: "0.25rem",
                     }}
                   >
@@ -196,7 +195,7 @@ export default function PricingSection() {
                             alignItems: "flex-start",
                             fontSize:   "0.875rem",
                             fontWeight: isStrong ? 700 : 400,
-                            color:      plan.highlight ? (isStrong ? "#A5F3C4" : "rgba(255,255,255,0.9)") : (isStrong ? "var(--blue-700)" : "var(--text-2)"),
+                            color:      plan.id === "standard" ? (isStrong ? "#A5F3C4" : "rgba(255,255,255,0.85)") : (isStrong ? "var(--blue-700)" : "var(--text-2)"),
                           }}
                         >
                           <Check
@@ -204,7 +203,7 @@ export default function PricingSection() {
                             style={{
                               flexShrink: 0,
                               marginTop:  "0.1rem",
-                              color:      plan.highlight ? "#6EE7B7" : "var(--green-600)",
+                              color:      plan.id === "standard" ? "#6EE7B7" : "var(--green-600)",
                             }}
                           />
                           {item}
@@ -238,9 +237,9 @@ export default function PricingSection() {
                       lineHeight:   1.65,
                       marginBottom: "1.25rem",
                       padding:      "0.75rem 1rem",
-                      background:   plan.highlight ? "rgba(255,255,255,0.12)" : "var(--blue-50)",
+                      background:   plan.id === "standard" ? "rgba(255,255,255,0.1)" : "var(--blue-50)",
                       borderRadius: "var(--r)",
-                      color:        plan.highlight ? "rgba(255,255,255,0.9)" : "var(--blue-700)",
+                      color:        plan.id === "standard" ? "rgba(255,255,255,0.85)" : "var(--blue-700)",
                       fontWeight:   500,
                     }}
                   >
@@ -259,9 +258,9 @@ export default function PricingSection() {
                     fontSize:       "0.875rem",
                     fontWeight:     700,
                     textDecoration: "none",
-                    background:     plan.highlight ? "#fff" : "transparent",
-                    color:          plan.highlight ? "var(--blue-700)" : "var(--blue-700)",
-                    border:         plan.highlight ? "none" : "1.5px solid var(--blue-500)",
+                    background:     plan.id === "standard" ? "rgba(255,255,255,0.15)" : "transparent",
+                    color:          plan.id === "standard" ? "#fff" : "var(--blue-700)",
+                    border:         plan.id === "standard" ? "1.5px solid rgba(255,255,255,0.4)" : "1.5px solid var(--blue-500)",
                     transition:     "opacity 0.15s",
                   }}
                 >

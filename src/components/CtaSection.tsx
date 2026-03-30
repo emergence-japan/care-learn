@@ -72,9 +72,9 @@ export default function CtaSection() {
                 marginBottom:  "1rem",
               }}
             >
-              まずは、デモ画面を
+              まずは、お気軽に
               <br />
-              見てみませんか？
+              お問い合わせください。
             </h2>
 
             <p
@@ -85,9 +85,9 @@ export default function CtaSection() {
                 marginBottom: "2.5rem",
               }}
             >
-              実際の管理画面・受講画面をご覧いただけます。
+              導入の流れや料金など、どんなことでもお答えします。
               <br />
-              導入に関するご質問も、お気軽にどうぞ。
+              まずはお気軽にご連絡ください。
             </p>
 
             <div
@@ -99,10 +99,7 @@ export default function CtaSection() {
               }}
             >
               <a href="/school-application" className="btn btn-white btn-lg">
-                無料デモを申し込む →
-              </a>
-              <a href="mailto:info@carelearning.jp" className="btn btn-ghost-white btn-lg">
-                メールで問い合わせる
+                お問い合わせ →
               </a>
             </div>
 

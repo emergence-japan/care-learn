@@ -58,7 +58,7 @@ export default function MidCtaSection() {
               className="btn btn-cta btn-lg"
               style={{ flexShrink: 0, whiteSpace: "nowrap" }}
             >
-              無料デモを申し込む →
+              お問い合わせ →
             </a>
           </div>
         </FadeIn>

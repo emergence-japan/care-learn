@@ -1,7 +1,6 @@
 import HeroSection      from "@/components/HeroSection";
 import ProblemSection   from "@/components/ProblemSection";
 import ValueSection     from "@/components/ValueSection";
-import CoursesSection   from "@/components/CoursesSection";
 import PricingSection   from "@/components/PricingSection";
 import FeaturesSection  from "@/components/FeaturesSection";
 import TargetsSection   from "@/components/TargetsSection";
@@ -13,15 +12,14 @@ export default function Home() {
       <HeroSection />
       <ProblemSection />
       <ValueSection />
-      <CoursesSection />
       <PricingSection />
       <FeaturesSection />
       <TargetsSection />
       <CtaSection />
       <footer
         style={{
-          borderTop:  "1px solid var(--border)",
-          background: "#fff",
+          borderTop:  "1px solid rgba(255,255,255,0.08)",
+          background: "var(--slate-900)",
         }}
       >
         {/* Main footer row */}
@@ -41,10 +39,7 @@ export default function Home() {
               style={{
                 fontWeight: 800,
                 fontSize:   "1rem",
-                background: "linear-gradient(90deg, var(--blue-900), var(--blue-500))",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                color:      "#fff",
               }}
             >
               Care<span style={{ color: "var(--cta)" }}>Learning</span>
@@ -53,7 +48,7 @@ export default function Home() {
               style={{
                 marginTop: "0.375rem",
                 fontSize:  "0.8125rem",
-                color:     "var(--text-3)",
+                color:     "rgba(255,255,255,0.45)",
               }}
             >
               介護施設向け法定研修管理LMS
@@ -68,13 +63,13 @@ export default function Home() {
               fontSize: "0.8125rem",
             }}
           >
-            <a href="/privacy" style={{ color: "var(--text-2)", textDecoration: "none" }}>
+            <a href="/privacy" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>
               プライバシーポリシー
             </a>
-            <a href="/legal" style={{ color: "var(--text-2)", textDecoration: "none" }}>
+            <a href="/legal" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>
               特定商取引法に基づく表示
             </a>
-            <a href="/school-application" style={{ color: "var(--text-2)", textDecoration: "none" }}>
+            <a href="/school-application" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>
               お問い合わせ
             </a>
           </nav>
@@ -83,11 +78,11 @@ export default function Home() {
         {/* Copyright bar */}
         <div
           style={{
-            borderTop:  "1px solid var(--border)",
+            borderTop:  "1px solid rgba(255,255,255,0.08)",
             padding:    "1rem 1.5rem",
             textAlign:  "center",
             fontSize:   "0.75rem",
-            color:      "var(--text-3)",
+            color:      "rgba(255,255,255,0.35)",
           }}
         >
           &copy; 2026 Care Learning. All Rights Reserved.

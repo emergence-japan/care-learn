@@ -38,7 +38,7 @@ export default function TargetsSection() {
       id="targets"
       style={{
         padding:    "6rem 0",
-        background: "linear-gradient(160deg, #EFF6FF 0%, var(--slate-50) 100%)",
+        background: "#fff",
       }}
     >
       <div className="container">

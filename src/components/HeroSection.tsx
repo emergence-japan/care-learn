@@ -5,7 +5,6 @@ import { heroContainer, heroItem } from "@/lib/motion";
 import LmsScreenMockup from "./LmsScreenMockup";
 
 const kpis = [
-  { num: "全15科目",   label: "完全網羅 ── 厚生労働省の法定要件をすべてカバー" },
   { num: "1クリック", label: "監査帳票 自動出力 ── 受講記録を即時帳票化" },
   { num: "AI監視",    label: "法改正を自動検知してお知らせ" },
 ];
@@ -15,7 +14,7 @@ export default function HeroSection() {
     <section
       id="hero"
       style={{
-        paddingTop:    "calc(var(--hh) + 5.5rem)",
+        paddingTop:    "calc(var(--hh) + 3rem)",
         paddingBottom: "6rem",
         background:
           "radial-gradient(ellipse 120% 80% at 50% -20%, rgba(37,99,235,0.09) 0%, transparent 62%), #ffffff",
@@ -133,7 +132,7 @@ export default function HeroSection() {
               style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}
             >
               <a href="/school-application" className="btn btn-cta btn-lg">
-                デモを見る
+                お問い合わせ
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>

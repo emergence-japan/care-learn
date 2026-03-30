@@ -89,7 +89,7 @@ const secondary = [
 
 export default function FeaturesSection() {
   return (
-    <section id="features" style={{ padding: "6rem 0", background: "#fff" }}>
+    <section id="features" style={{ padding: "6rem 0", background: "var(--slate-50)" }}>
       <div className="container">
 
         <FadeIn style={{ textAlign: "center", marginBottom: "3rem" }}>
@@ -177,6 +177,7 @@ export default function FeaturesSection() {
                   background:   "#fff",
                   borderRadius: "var(--r-lg)",
                   border:       "1px solid var(--border)",
+                  boxShadow:    "var(--shadow-sm)",
                   padding:      "1.25rem",
                   height:       "100%",
                   boxSizing:    "border-box",

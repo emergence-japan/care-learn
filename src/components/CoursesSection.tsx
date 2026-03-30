@@ -1,17 +1,17 @@
 import { FadeIn } from "@/lib/motion";
-import { Video, FileText, ClipboardCheck, ShieldCheck } from "lucide-react";
+import { Video, FileText, ClipboardCheck } from "lucide-react";
 
 const courses = [
   { num: "01", title: "ハラスメント対策研修",           color: "#DC2626",          bg: "#FEF2F2"  },
   { num: "02", title: "感染症・食中毒予防研修",         color: "var(--green-600)", bg: "var(--green-50)" },
-  { num: "03", title: "プライバシー保護・個人情報保護研修", color: "#0891B2",        bg: "#ECFEFF"  },
+  { num: "03", title: "プライバシー保護研修",               color: "#0891B2",        bg: "#ECFEFF"  },
   { num: "04", title: "事故発生防止研修",               color: "#D97706",          bg: "#FFFBEB"  },
   { num: "05", title: "認知症ケア研修",                 color: "var(--blue-600)",  bg: "var(--blue-50)" },
   { num: "06", title: "接遇・マナー研修",               color: "#7C3AED",          bg: "#F5F3FF"  },
   { num: "07", title: "倫理・法令遵守研修",             color: "#0891B2",          bg: "#ECFEFF"  },
   { num: "08", title: "介護予防・自立支援研修",         color: "var(--green-600)", bg: "var(--green-50)" },
   { num: "09", title: "医療的ケア研修",                 color: "#DC2626",          bg: "#FEF2F2"  },
-  { num: "10", title: "看取り・ターミナルケア研修",     color: "#7C3AED",          bg: "#F5F3FF"  },
+  { num: "10", title: "看取り研修",                     color: "#7C3AED",          bg: "#F5F3FF"  },
   { num: "11", title: "災害対策・防災訓練研修",         color: "#D97706",          bg: "#FFFBEB"  },
   { num: "12", title: "身体拘束廃止・防止研修",         color: "var(--blue-600)",  bg: "var(--blue-50)" },
   { num: "13", title: "高齢者虐待防止研修",             color: "#DC2626",          bg: "#FEF2F2"  },
@@ -27,7 +27,7 @@ const formats = [
 
 export default function CoursesSection() {
   return (
-    <section id="courses" style={{ padding: "6rem 0", background: "#fff" }}>
+    <section id="courses" style={{ padding: "6rem 0", background: "var(--slate-50)" }}>
       <div className="container">
 
         <FadeIn style={{ textAlign: "center", marginBottom: "3rem" }}>
@@ -81,63 +81,34 @@ export default function CoursesSection() {
             marginBottom:        "2rem",
           }}
         >
-          {courses.map(({ num, title, color, bg }, i) => (
+          {courses.map(({ num, title, color }, i) => (
             <FadeIn key={num} delay={i * 0.06}>
-              <div
-                style={{
-                  background:   "#fff",
-                  border:       "1px solid var(--border)",
-                  borderRadius: "var(--r-lg)",
-                  padding:      "1.375rem 1.5rem",
-                  display:      "flex",
-                  alignItems:   "center",
-                  gap:          "1rem",
-                  boxShadow:    "var(--shadow-sm)",
-                }}
-              >
-                {/* Number badge */}
+              <div className="course-card">
+                {/* Large faded background number */}
                 <div
+                  aria-hidden="true"
                   style={{
-                    flexShrink:     0,
-                    width:          44,
-                    height:         44,
-                    borderRadius:   "12px",
-                    background:     bg,
-                    display:        "flex",
-                    alignItems:     "center",
-                    justifyContent: "center",
-                    fontSize:       "0.8125rem",
-                    fontWeight:     800,
+                    position:      "absolute",
+                    right:         "0.5rem",
+                    bottom:        "-0.25rem",
+                    fontSize:      "4rem",
+                    fontWeight:    900,
+                    lineHeight:    1,
                     color,
-                    letterSpacing:  "0.03em",
+                    opacity:       0.08,
+                    userSelect:    "none",
+                    letterSpacing: "-0.04em",
+                    pointerEvents: "none",
                   }}
                 >
                   {num}
                 </div>
 
                 {/* Title + compliance badge */}
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontWeight: 700, fontSize: "0.9375rem", lineHeight: 1.4 }}>
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <p style={{ fontWeight: 700, fontSize: "0.9375rem", lineHeight: 1.45, marginBottom: "0.5rem" }}>
                     {title}
                   </p>
-                  <span
-                    style={{
-                      display:       "inline-flex",
-                      alignItems:    "center",
-                      gap:           "0.25rem",
-                      marginTop:     "0.375rem",
-                      padding:       "0.15rem 0.5rem",
-                      background:    "#F0FDF4",
-                      color:         "#065F46",
-                      borderRadius:  "4px",
-                      fontSize:      "0.6875rem",
-                      fontWeight:    700,
-                      letterSpacing: "0.03em",
-                    }}
-                  >
-                    <ShieldCheck size={10} />
-                    厚生労働省 法定要件準拠
-                  </span>
                 </div>
               </div>
             </FadeIn>

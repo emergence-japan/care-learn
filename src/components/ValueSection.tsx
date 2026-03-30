@@ -1,5 +1,23 @@
 import { FadeIn } from "@/lib/motion";
-import { FileDown, BellRing, BookOpen, CheckCircle2 } from "lucide-react";
+import { FileDown, BellRing, CheckCircle2 } from "lucide-react";
+
+const courses = [
+  { num: "01", title: "ハラスメント対策研修",       color: "#DC2626" },
+  { num: "02", title: "感染症・食中毒予防研修",     color: "var(--green-600)" },
+  { num: "03", title: "プライバシー保護研修",       color: "#0891B2" },
+  { num: "04", title: "事故発生防止研修",           color: "#D97706" },
+  { num: "05", title: "認知症ケア研修",             color: "var(--blue-600)" },
+  { num: "06", title: "接遇・マナー研修",           color: "#7C3AED" },
+  { num: "07", title: "倫理・法令遵守研修",         color: "#0891B2" },
+  { num: "08", title: "介護予防・自立支援研修",     color: "var(--green-600)" },
+  { num: "09", title: "医療的ケア研修",             color: "#DC2626" },
+  { num: "10", title: "看取り研修",               color: "#7C3AED" },
+  { num: "11", title: "災害対策・防災訓練研修",     color: "#D97706" },
+  { num: "12", title: "身体拘束廃止・防止研修",     color: "var(--blue-600)" },
+  { num: "13", title: "高齢者虐待防止研修",         color: "#DC2626" },
+  { num: "14", title: "精神的ケアに関する研修",     color: "#7C3AED" },
+  { num: "15", title: "緊急時対応研修",             color: "#D97706" },
+];
 
 const pillarBadge = (num: number, bg: string, color: string) => (
   <div
@@ -23,7 +41,7 @@ const pillarBadge = (num: number, bg: string, color: string) => (
 
 export default function ValueSection() {
   return (
-    <section id="value" style={{ padding: "6rem 0", background: "var(--slate-50)" }}>
+    <section id="value" style={{ padding: "6rem 0", background: "#fff" }}>
       <div className="container">
 
         {/* Section header */}
@@ -226,101 +244,64 @@ export default function ValueSection() {
 
         {/* ── Pillar 3 ── */}
         <FadeIn>
+          <div style={{ marginBottom: "2.5rem" }}>
+            {pillarBadge(3, "#FFEDD5", "var(--orange-500)")}
+            <h3
+              style={{
+                fontSize:      "clamp(1.375rem, 2.5vw, 1.75rem)",
+                fontWeight:    700,
+                letterSpacing: "-0.025em",
+                marginBottom:  "0.75rem",
+              }}
+            >
+              これ一本で、
+              <br />法定研修がすべて完結
+            </h3>
+            <p style={{ fontSize: "0.9375rem", color: "var(--text-2)", lineHeight: 1.85, maxWidth: "560px" }}>
+              15科目すべてに動画・スライド・理解度テストを完備。
+              外部講師への依頼も、会場手配も不要です。
+              必要な研修がひとつのプラットフォームで完結します。
+            </p>
+          </div>
+
+          {/* Course card grid */}
           <div
             style={{
               display:             "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap:                 "3rem",
-              alignItems:          "start",
+              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+              gridAutoRows:        "4.5rem",
+              gap:                 "0.875rem",
             }}
           >
-            <div>
-              {pillarBadge(3, "#FFEDD5", "var(--orange-500)")}
-              <h3
-                style={{
-                  fontSize:      "clamp(1.375rem, 2.5vw, 1.75rem)",
-                  fontWeight:    700,
-                  letterSpacing: "-0.025em",
-                  marginBottom:  "0.75rem",
-                }}
-              >
-                これ一本で、
-                <br />法定研修がすべて完結
-              </h3>
-              <p style={{ fontSize: "0.9375rem", color: "var(--text-2)", lineHeight: 1.85 }}>
-                15科目すべてに動画・スライド・理解度テストを完備。
-                外部講師への依頼も、会場手配も不要です。
-                必要な研修がひとつのプラットフォームで完結します。
-              </p>
-            </div>
-
-            {/* Visual: course summary */}
-            <div
-              style={{
-                background:   "#fff",
-                border:       "1px solid var(--border)",
-                borderRadius: "var(--r-lg)",
-                overflow:     "hidden",
-                boxShadow:    "var(--shadow-sm)",
-              }}
-            >
+            {courses.map(({ num, title, color }) => (
               <div
-                style={{
-                  padding:    "1rem 1.5rem",
-                  background: "linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%)",
-                  borderBottom: "1px solid #FED7AA",
-                  display:    "flex",
-                  alignItems: "center",
-                  gap:        "0.75rem",
-                }}
+                key={num}
+                className="course-card"
+                style={{ borderLeft: `3px solid ${color}`, overflow: "hidden" }}
               >
-                <BookOpen size={18} style={{ color: "var(--orange-500)" }} />
-                <span style={{ fontWeight: 700, fontSize: "0.9375rem" }}>全15科目 ── 厚生労働省 法定要件準拠</span>
-              </div>
-              {[
-                "ハラスメント対策研修",
-                "感染症・食中毒予防研修",
-                "プライバシー保護・個人情報保護研修",
-                "事故発生防止研修",
-                "認知症ケア研修",
-                "接遇・マナー研修",
-                "倫理・法令遵守研修",
-                "介護予防・自立支援研修",
-                "医療的ケア研修",
-                "看取り・ターミナルケア研修",
-                "災害対策・防災訓練研修",
-                "身体拘束廃止・防止研修",
-                "高齢者虐待防止研修",
-                "精神的ケアに関する研修",
-                "緊急時対応研修",
-              ].map((course, i) => (
                 <div
-                  key={i}
+                  aria-hidden="true"
                   style={{
-                    display:      "flex",
-                    alignItems:   "center",
-                    justifyContent: "space-between",
-                    padding:      "0.8125rem 1.5rem",
-                    borderBottom: i < 14 ? "1px solid var(--border)" : "none",
+                    position:      "absolute",
+                    right:         "0.5rem",
+                    bottom:        "-0.25rem",
+                    fontSize:      "3.5rem",
+                    fontWeight:    900,
+                    lineHeight:    1,
+                    color,
+                    opacity:       0.07,
+                    userSelect:    "none",
+                    letterSpacing: "-0.04em",
+                    pointerEvents: "none",
                   }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
-                    <CheckCircle2 size={15} style={{ color: "var(--orange-500)", flexShrink: 0 }} />
-                    <span style={{ fontSize: "0.875rem", fontWeight: 500 }}>{course}</span>
-                  </div>
-                  <span
-                    style={{
-                      fontSize:     "0.6875rem",
-                      color:        "var(--text-3)",
-                      whiteSpace:   "nowrap",
-                      marginLeft:   "0.5rem",
-                    }}
-                  >
-                    動画 / スライド / テスト
-                  </span>
+                  {num}
                 </div>
-              ))}
-            </div>
+                <p style={{ position: "relative", zIndex: 1, fontWeight: 700, fontSize: "0.875rem", lineHeight: 1.45, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                  {title}
+                </p>
+              </div>
+            ))}
           </div>
         </FadeIn>
 

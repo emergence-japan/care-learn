@@ -69,7 +69,7 @@ const pains = [
 
 export default function ProblemSection() {
   return (
-    <section id="pain" style={{ padding: "6rem 0", background: "#fff" }}>
+    <section id="pain" style={{ padding: "6rem 0", background: "var(--slate-50)" }}>
       <div className="container">
 
         {/* Header */}

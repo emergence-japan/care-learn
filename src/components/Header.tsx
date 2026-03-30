@@ -77,7 +77,7 @@ export default function Header() {
               </a>
             ))}
             <a href="/school-application" className="btn btn-cta btn-sm">
-              無料デモを申し込む
+              お問い合わせ
             </a>
           </nav>
 
@@ -139,7 +139,7 @@ export default function Header() {
               className="btn btn-cta btn-md"
               style={{ marginTop: "1rem" }}
             >
-              無料デモを申し込む →
+              お問い合わせ →
             </a>
           </div>
         )}
