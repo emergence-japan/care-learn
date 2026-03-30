@@ -248,7 +248,7 @@ export default function ValueSection() {
                 <br />法定研修がすべて完結
               </h3>
               <p style={{ fontSize: "0.9375rem", color: "var(--text-2)", lineHeight: 1.85 }}>
-                6科目すべてに動画・スライド・理解度テストを完備。
+                15科目すべてに動画・スライド・理解度テストを完備。
                 外部講師への依頼も、会場手配も不要です。
                 必要な研修がひとつのプラットフォームで完結します。
               </p>
@@ -275,15 +275,24 @@ export default function ValueSection() {
                 }}
               >
                 <BookOpen size={18} style={{ color: "var(--orange-500)" }} />
-                <span style={{ fontWeight: 700, fontSize: "0.9375rem" }}>全6科目 ── 厚生労働省 法定要件準拠</span>
+                <span style={{ fontWeight: 700, fontSize: "0.9375rem" }}>全15科目 ── 厚生労働省 法定要件準拠</span>
               </div>
               {[
-                "認知症介護",
-                "身体拘束廃止",
-                "感染対策",
-                "リスクマネジメント",
-                "ハラスメント対策",
-                "プライバシー保護",
+                "ハラスメント対策研修",
+                "感染症・食中毒予防研修",
+                "プライバシー保護・個人情報保護研修",
+                "事故発生防止研修",
+                "認知症ケア研修",
+                "接遇・マナー研修",
+                "倫理・法令遵守研修",
+                "介護予防・自立支援研修",
+                "医療的ケア研修",
+                "看取り・ターミナルケア研修",
+                "災害対策・防災訓練研修",
+                "身体拘束廃止・防止研修",
+                "高齢者虐待防止研修",
+                "精神的ケアに関する研修",
+                "緊急時対応研修",
               ].map((course, i) => (
                 <div
                   key={i}
@@ -292,7 +301,7 @@ export default function ValueSection() {
                     alignItems:   "center",
                     justifyContent: "space-between",
                     padding:      "0.8125rem 1.5rem",
-                    borderBottom: i < 5 ? "1px solid var(--border)" : "none",
+                    borderBottom: i < 14 ? "1px solid var(--border)" : "none",
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>

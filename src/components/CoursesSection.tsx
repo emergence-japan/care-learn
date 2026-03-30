@@ -2,42 +2,21 @@ import { FadeIn } from "@/lib/motion";
 import { Video, FileText, ClipboardCheck, ShieldCheck } from "lucide-react";
 
 const courses = [
-  {
-    num:   "01",
-    title: "認知症介護",
-    color: "var(--blue-600)",
-    bg:    "var(--blue-50)",
-  },
-  {
-    num:   "02",
-    title: "身体拘束廃止",
-    color: "#7C3AED",
-    bg:    "#F5F3FF",
-  },
-  {
-    num:   "03",
-    title: "感染対策",
-    color: "var(--green-600)",
-    bg:    "var(--green-50)",
-  },
-  {
-    num:   "04",
-    title: "リスクマネジメント",
-    color: "#D97706",
-    bg:    "#FFFBEB",
-  },
-  {
-    num:   "05",
-    title: "ハラスメント対策",
-    color: "#DC2626",
-    bg:    "#FEF2F2",
-  },
-  {
-    num:   "06",
-    title: "プライバシー保護",
-    color: "#0891B2",
-    bg:    "#ECFEFF",
-  },
+  { num: "01", title: "ハラスメント対策研修",           color: "#DC2626",          bg: "#FEF2F2"  },
+  { num: "02", title: "感染症・食中毒予防研修",         color: "var(--green-600)", bg: "var(--green-50)" },
+  { num: "03", title: "プライバシー保護・個人情報保護研修", color: "#0891B2",        bg: "#ECFEFF"  },
+  { num: "04", title: "事故発生防止研修",               color: "#D97706",          bg: "#FFFBEB"  },
+  { num: "05", title: "認知症ケア研修",                 color: "var(--blue-600)",  bg: "var(--blue-50)" },
+  { num: "06", title: "接遇・マナー研修",               color: "#7C3AED",          bg: "#F5F3FF"  },
+  { num: "07", title: "倫理・法令遵守研修",             color: "#0891B2",          bg: "#ECFEFF"  },
+  { num: "08", title: "介護予防・自立支援研修",         color: "var(--green-600)", bg: "var(--green-50)" },
+  { num: "09", title: "医療的ケア研修",                 color: "#DC2626",          bg: "#FEF2F2"  },
+  { num: "10", title: "看取り・ターミナルケア研修",     color: "#7C3AED",          bg: "#F5F3FF"  },
+  { num: "11", title: "災害対策・防災訓練研修",         color: "#D97706",          bg: "#FFFBEB"  },
+  { num: "12", title: "身体拘束廃止・防止研修",         color: "var(--blue-600)",  bg: "var(--blue-50)" },
+  { num: "13", title: "高齢者虐待防止研修",             color: "#DC2626",          bg: "#FEF2F2"  },
+  { num: "14", title: "精神的ケアに関する研修",         color: "#7C3AED",          bg: "#F5F3FF"  },
+  { num: "15", title: "緊急時対応研修",                 color: "#D97706",          bg: "#FFFBEB"  },
 ];
 
 const formats = [
@@ -183,7 +162,7 @@ export default function CoursesSection() {
                 lineHeight: 1.8,
               }}
             >
-              全6科目に
+              全15科目に
               <span style={{ color: "#A5F3C4" }}>動画・スライド・理解度テスト</span>
               を完備。
               <br />

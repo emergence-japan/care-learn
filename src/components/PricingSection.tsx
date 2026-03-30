@@ -11,7 +11,7 @@ const plans = [
     highlight: false,
     badge:     null,
     includes: [
-      "全6科目コンテンツ閲覧",
+      "全15科目コンテンツ閲覧",
       "受講管理・修了証PDF発行",
     ],
     excludes: [
@@ -32,7 +32,7 @@ const plans = [
     highlight: true,
     badge:     "おすすめ",
     includes: [
-      "全6科目コンテンツ閲覧",
+      "全15科目コンテンツ閲覧",
       "受講管理・修了証PDF発行",
       "監査対応帳票 自動出力",
       "法改正AI通知",

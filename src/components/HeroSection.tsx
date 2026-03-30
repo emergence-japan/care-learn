@@ -5,7 +5,7 @@ import { heroContainer, heroItem } from "@/lib/motion";
 import LmsScreenMockup from "./LmsScreenMockup";
 
 const kpis = [
-  { num: "全6科目",   label: "完全網羅 ── 厚生労働省の法定要件をすべてカバー" },
+  { num: "全15科目",   label: "完全網羅 ── 厚生労働省の法定要件をすべてカバー" },
   { num: "1クリック", label: "監査帳票 自動出力 ── 受講記録を即時帳票化" },
   { num: "AI監視",    label: "法改正を自動検知してお知らせ" },
 ];
