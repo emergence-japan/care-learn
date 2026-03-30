@@ -41,7 +41,7 @@ const courses = [
 ];
 
 const formats = [
-  { Icon: Video,           label: "動画（NotebookLM解説）" },
+  { Icon: Video,           label: "動画" },
   { Icon: FileText,        label: "スライド" },
   { Icon: ClipboardCheck,  label: "理解度テスト" },
 ];
@@ -184,7 +184,7 @@ export default function CoursesSection() {
               }}
             >
               全6科目に
-              <span style={{ color: "#A5F3C4" }}>動画（NotebookLM解説）・スライド・理解度テスト</span>
+              <span style={{ color: "#A5F3C4" }}>動画・スライド・理解度テスト</span>
               を完備。
               <br />
               外部講師への依頼も、会場手配も、もう必要ありません。
