@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HeroSection プレビュー</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; background: #f1f5f9; }
+
+  /* LP HeroSection 再現 */
+  .hero {
+    padding: 100px 0 80px;
+    background: radial-gradient(ellipse 120% 80% at 50% -20%, rgba(37,99,235,0.09) 0%, transparent 62%), #ffffff;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(249,115,22,0.055) 0%, transparent 68%);
+    pointer-events: none;
+  }
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+  /* 2カラムグリッド */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .hero-grid { grid-template-columns: 1fr; }
+  }
+
+  /* 左カラム */
+  .hero-left { display: flex; flex-direction: column; gap: 1.75rem; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px;
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 999px;
+    font-size: 13px; font-weight: 600; color: #64748b;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    width: fit-content;
+  }
+  .badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; display: inline-block; }
+
+  h1 { font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 900; line-height: 1.15; letter-spacing: -0.04em; }
+  .gradient-text {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .subtext { font-size: 17px; color: #475569; line-height: 1.85; }
+
+  .cta-group { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 24px; border-radius: 10px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff; font-size: 15px; font-weight: 700;
+    box-shadow: 0 4px 16px rgba(37,99,235,0.3);
+    text-decoration: none;
+  }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 24px; border-radius: 10px;
+    border: 1.5px solid #e2e8f0; background: #fff;
+    color: #334155; font-size: 15px; font-weight: 600;
+    text-decoration: none;
+  }
+  .trust-note { font-size: 12.5px; color: #94a3b8; }
+
+  .kpis { display: flex; flex-wrap: wrap; gap: 2.5rem; padding-top: 1.75rem; border-top: 1px solid #e2e8f0; }
+  .kpi-num { font-size: clamp(1.6rem, 2.5vw, 2rem); font-weight: 900; color: #1d4ed8; letter-spacing: -0.04em; line-height: 1.1; }
+  .kpi-label { font-size: 13px; color: #64748b; font-weight: 500; margin-top: 4px; }
+
+  /* ===== 右カラム: LMSモックアップ ===== */
+  .hero-right { display: flex; justify-content: center; align-items: center; }
+
+  .mockup-wrapper {
+    width: 100%; max-width: 540px;
+    filter: drop-shadow(0 32px 64px rgba(15,23,42,0.18)) drop-shadow(0 8px 16px rgba(15,23,42,0.10));
+    animation: slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.3s both;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .browser-frame { border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.3); }
+
+  .browser-bar {
+    background: #1e293b; padding: 10px 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .dot-red { background: #ef4444; }
+  .dot-yellow { background: #f59e0b; }
+  .dot-green { background: #22c55e; }
+  .url-bar {
+    flex: 1; margin-left: 8px; background: #334155; border-radius: 6px;
+    padding: 4px 10px; font-size: 11px; color: #94a3b8; font-family: monospace;
+  }
+
+  .login-screen { display: flex; height: 340px; }
+
+  /* 左パネル */
+  .login-left {
+    width: 46%; flex-shrink: 0;
+    background: linear-gradient(160deg, #0f172a 0%, #1e3a5f 100%);
+    padding: 28px 22px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .login-brand-sub { font-size: 11px; color: #94a3b8; margin-bottom: 6px; font-weight: 600; letter-spacing: 0.05em; }
+  .login-title { font-size: 17px; font-weight: 900; color: #f1f5f9; line-height: 1.4; letter-spacing: -0.02em; }
+  .login-title .accent {
+    background: linear-gradient(90deg, #60a5fa, #38bdf8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    font-style: italic;
+  }
+  .login-lead { font-size: 9.5px; color: #64748b; margin-top: 8px; line-height: 1.6; }
+
+  .feature-list { display: flex; flex-direction: column; gap: 10px; }
+  .feature-item { display: flex; gap: 8px; align-items: flex-start; }
+  .feature-icon {
+    width: 26px; height: 26px; border-radius: 7px;
+    background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; flex-shrink: 0;
+  }
+  .feature-title { font-size: 10px; font-weight: 700; color: #e2e8f0; margin-bottom: 1px; }
+  .feature-desc  { font-size: 9px; color: #64748b; line-height: 1.5; }
+
+  .login-footer { font-size: 9px; color: #475569; letter-spacing: 0.08em; }
+
+  /* 右パネル */
+  .login-right {
+    flex: 1; background: #f8fafc; padding: 28px 20px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .login-right::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: rgba(226,232,240,0.5);
+  }
+  .form-title { font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 3px; }
+  .form-sub   { font-size: 10px; color: #2563eb; font-style: italic; margin-bottom: 18px; }
+
+  .form-group { margin-bottom: 12px; }
+  .form-label { font-size: 10px; font-weight: 600; color: #475569; display: block; margin-bottom: 5px; }
+  .form-row   { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+  .form-forgot { font-size: 9px; color: #2563eb; }
+  .form-input {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;
+    padding: 7px 10px; font-size: 11px; color: #94a3b8; width: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .form-btn {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #fff; border-radius: 8px; padding: 9px;
+    text-align: center; font-size: 12px; font-weight: 700;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.35); letter-spacing: 0.02em;
+    margin-top: 4px;
+  }
+
+  /* ラベル */
+  .preview-label {
+    text-align: center; padding: 12px;
+    font-size: 12px; color: #94a3b8;
+    background: #f8fafc; border-top: 1px solid #e2e8f0;
+  }
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+
+      <!-- 左カラム -->
+      <div class="hero-left">
+        <div>
+          <span class="badge">
+            <span class="badge-dot"></span>
+            介護施設向け法定研修管理LMS
+          </span>
+        </div>
+
+        <h1>
+          <span class="gradient-text">法定研修の手間を、ゼロへ。</span><br>
+          <span>学びを、本物へ。</span>
+        </h1>
+
+        <p class="subtext">
+          研修資料の準備・受講記録・監査書類の作成——<br>
+          管理者を苦しめてきたすべての手作業を自動化します。<br>
+          そして、形だけでない、本当に身につく研修体験を届けます。
+        </p>
+
+        <div class="cta-group">
+          <a href="#" class="btn-primary">
+            無料デモを申し込む →
+          </a>
+          <a href="#" class="btn-outline">課題を見る</a>
+        </div>
+
+        <p class="trust-note">初期費用無料 · 導入サポート付き · 最短2週間で運用開始</p>
+
+        <div class="kpis">
+          <div>
+            <div class="kpi-num">100%</div>
+            <div class="kpi-label">法定研修要件を網羅</div>
+          </div>
+          <div>
+            <div class="kpi-num">0分</div>
+            <div class="kpi-label">監査書類の準備時間</div>
+          </div>
+          <div>
+            <div class="kpi-num">3ステップ</div>
+            <div class="kpi-label">で学びが現場に定着</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右カラム: LMSモックアップ -->
+      <div class="hero-right">
+        <div class="mockup-wrapper">
+          <div class="browser-frame">
+
+            <!-- ブラウザバー -->
+            <div class="browser-bar">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+              <div class="url-bar">care-learning-system.vercel.app/login</div>
+            </div>
+
+            <!-- ログイン画面 -->
+            <div class="login-screen">
+
+              <!-- 左パネル -->
+              <div class="login-left">
+                <div>
+                  <p class="login-brand-sub">Next Gen LMS</p>
+                  <h2 class="login-title">
+                    介護の未来を、<br>
+                    <span class="accent">学び</span>から変えていく。
+                  </h2>
+                  <p class="login-lead">
+                    現場のスタッフが誇りを持って成長できる<br>
+                    プロフェッショナルな学習プラットフォーム
+                  </p>
+                </div>
+                <div class="feature-list">
+                  <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <div>
+                      <p class="feature-title">コンプライアンス遵守</p>
+                      <p class="feature-desc">最新の制度改正に完全準拠したカリキュラム。</p>
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div>
+                      <p class="feature-title">現場に寄り添うUX</p>
+                      <p class="feature-desc">スマートフォンで1分から学べる直感的な設計。</p>
+                    </div>
+                  </div>
+                </div>
+                <p class="login-footer">© 2024 EMERGENCE JAPAN</p>
+              </div>
+
+              <!-- 右パネル -->
+              <div class="login-right">
+                <h3 class="form-title">ログイン</h3>
+                <p class="form-sub">Welcome back to excellence.</p>
+
+                <div class="form-group">
+                  <label class="form-label">ログインID</label>
+                  <div class="form-input">例: tanaka_taro</div>
+                </div>
+
+                <div class="form-group">
+                  <div class="form-row">
+                    <label class="form-label" style="margin:0">パスワード</label>
+                    <span class="form-forgot">忘れた場合</span>
+                  </div>
+                  <div class="form-input">••••••••</div>
+                </div>
+
+                <div class="form-btn">ログイン</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="preview-label">※ これはHeroSectionのプレビューです。実際のアニメーションはブラウザで確認してください。</div>
+</body>
+</html>

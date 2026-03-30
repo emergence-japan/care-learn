@@ -1,66 +1,98 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import HeroSection         from "@/components/HeroSection";
+import ProblemSection      from "@/components/ProblemSection";
+import ScrollStorySection  from "@/components/ScrollStorySection";
+import ValueSection        from "@/components/ValueSection";
+import MidCtaSection       from "@/components/MidCtaSection";
+import FeaturesSection     from "@/components/FeaturesSection";
+import TargetsSection      from "@/components/TargetsSection";
+import CtaSection          from "@/components/CtaSection";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
+    <main>
+      <HeroSection />
+      <ProblemSection />
+      <ScrollStorySection />
+      <ValueSection />
+      <MidCtaSection />
+      <FeaturesSection />
+      <TargetsSection />
+      <CtaSection />
+      <footer
+        style={{
+          borderTop:  "1px solid var(--border)",
+          background: "#fff",
+        }}
+      >
+        {/* Main footer row */}
+        <div
+          className="container"
+          style={{
+            display:        "flex",
+            flexWrap:       "wrap",
+            justifyContent: "space-between",
+            alignItems:     "center",
+            gap:            "1.25rem",
+            padding:        "2rem 1.5rem",
+          }}
+        >
+          <div>
+            <span
+              style={{
+                fontWeight: 800,
+                fontSize:   "1rem",
+                background: "linear-gradient(90deg, var(--blue-900), var(--blue-500))",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
+              Care<span style={{ color: "var(--cta)" }}>Learning</span>
+            </span>
+            <p
+              style={{
+                marginTop: "0.375rem",
+                fontSize:  "0.8125rem",
+                color:     "var(--text-3)",
+              }}
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+              介護施設向け法定研修管理LMS
+            </p>
+          </div>
+
+          <nav
+            style={{
+              display:  "flex",
+              flexWrap: "wrap",
+              gap:      "0.25rem 1.5rem",
+              fontSize: "0.8125rem",
+            }}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <a href="/privacy" style={{ color: "var(--text-2)", textDecoration: "none" }}>
+              プライバシーポリシー
+            </a>
+            <a href="/legal" style={{ color: "var(--text-2)", textDecoration: "none" }}>
+              特定商取引法に基づく表示
+            </a>
+            <a href="/school-application" style={{ color: "var(--text-2)", textDecoration: "none" }}>
+              お問い合わせ
+            </a>
+          </nav>
         </div>
-      </main>
-    </div>
+
+        {/* Copyright bar */}
+        <div
+          style={{
+            borderTop:  "1px solid var(--border)",
+            padding:    "1rem 1.5rem",
+            textAlign:  "center",
+            fontSize:   "0.75rem",
+            color:      "var(--text-3)",
+          }}
+        >
+          &copy; 2026 Care Learning. All Rights Reserved.
+        </div>
+      </footer>
+    </main>
   );
 }

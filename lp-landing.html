@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Care Learning | 介護施設向け法定研修管理LMS</title>
+  <meta name="description" content="法定研修の管理負担をゼロに。監査書類はボタン一つ。インストラクショナルデザインで本当に身につく研修を実現。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+      --blue:         #1A6EBD;
+      --blue-dark:    #145A9A;
+      --blue-light:   #EBF4FF;
+      --blue-mid:     #DBEEFF;
+      --green:        #0F9B6C;
+      --green-light:  #E8FAF4;
+      --orange:       #F26419;
+      --orange-light: #FFF0E8;
+      --red-light:    #FFF4F2;
+      --red-border:   #FECAC0;
+      --bg:           #F5F7FA;
+      --surface:      #FFFFFF;
+      --text:         #1A2B44;
+      --text-2:       #4F6080;
+      --text-3:       #8A9BB5;
+      --border:       #DEE5EF;
+      --radius:       12px;
+      --radius-lg:    20px;
+      --shadow-sm:    0 1px 4px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
+      --shadow-md:    0 4px 16px rgba(0,0,0,.09);
+      --shadow-lg:    0 8px 32px rgba(0,0,0,.12);
+      --max:          1100px;
+      --hh:           68px; /* header height */
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== LAYOUT ===== */
+    .wrap {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+    section { padding: 5rem 0; }
+
+    /* ===== TYPOGRAPHY HELPERS ===== */
+    .label {
+      display: inline-block;
+      padding: .25rem .9rem;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      border-radius: 999px;
+      margin-bottom: .875rem;
+    }
+    .label.green { background: var(--green-light); color: var(--green); }
+    .label.orange { background: var(--orange-light); color: var(--orange); }
+
+    .sec-title {
+      font-size: clamp(1.625rem, 3.5vw, 2.375rem);
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -.025em;
+      margin-bottom: .875rem;
+    }
+    .sec-lead {
+      font-size: 1rem;
+      color: var(--text-2);
+      line-height: 1.85;
+      max-width: 600px;
+    }
+    .center { text-align: center; }
+    .center .sec-lead { margin: 0 auto; }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .375rem;
+      padding: .75rem 1.625rem;
+      font-family: inherit;
+      font-size: .9375rem;
+      font-weight: 700;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s, background .15s;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-fill {
+      background: var(--orange);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(242,100,25,.35);
+    }
+    .btn-fill:hover { background: #d95713; box-shadow: 0 6px 18px rgba(242,100,25,.4); }
+    .btn-outline {
+      background: #fff;
+      color: var(--blue);
+      border: 2px solid var(--blue);
+    }
+    .btn-outline:hover { background: var(--blue-light); }
+    .btn-white {
+      background: #fff;
+      color: var(--blue);
+      box-shadow: 0 4px 14px rgba(0,0,0,.12);
+    }
+    .btn-white:hover { background: var(--blue-light); box-shadow: 0 6px 20px rgba(0,0,0,.18); }
+    .btn-ghost-white {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,.5);
+    }
+    .btn-ghost-white:hover { border-color: #fff; background: rgba(255,255,255,.1); }
+    .btn-lg { padding: .9375rem 2.125rem; font-size: 1.0625rem; border-radius: 12px; }
+
+    /* ===== HEADER ===== */
+    #hdr {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--hh);
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      transition: box-shadow .25s;
+    }
+    #hdr.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,.08); }
+    .hdr-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .logo {
+      font-size: 1.375rem;
+      font-weight: 900;
+      color: var(--blue);
+      letter-spacing: -.02em;
+    }
+    .logo b { color: var(--orange); font-weight: 900; }
+    .hdr-nav {
+      display: none;
+      gap: 2rem;
+    }
+    .hdr-nav a {
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--text-2);
+      transition: color .2s;
+    }
+    .hdr-nav a:hover { color: var(--blue); }
+
+    /* ===== HERO ===== */
+    #hero {
+      padding-top: calc(var(--hh) + 4.5rem);
+      padding-bottom: 5rem;
+      background: linear-gradient(155deg, #EFF6FF 0%, #F5F7FA 55%, #FFF3EC 100%);
+      overflow: hidden;
+      position: relative;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: -80px; right: -120px;
+      width: 560px; height: 560px;
+      background: radial-gradient(circle, rgba(26,110,189,.07) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 700px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .3125rem 1rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: .8125rem;
+      font-weight: 600;
+      color: var(--text-2);
+      box-shadow: var(--shadow-sm);
+      width: fit-content;
+    }
+    .hero-badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+    .hero-title {
+      font-size: clamp(2.125rem, 5vw, 3.375rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -.035em;
+    }
+    .hero-title em { font-style: normal; color: var(--blue); }
+    .hero-sub {
+      font-size: 1.0625rem;
+      color: var(--text-2);
+      line-height: 1.85;
+    }
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .875rem;
+      align-items: center;
+    }
+    .hero-note {
+      font-size: .8rem;
+      color: var(--text-3);
+      margin-top: -.25rem;
+    }
+    .hero-kpis {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .kpi-num {
+      font-size: 1.875rem;
+      font-weight: 900;
+      color: var(--blue);
+      letter-spacing: -.04em;
+      line-height: 1.1;
+    }
+    .kpi-num span { font-size: 1rem; font-weight: 600; }
+    .kpi-label {
+      font-size: .8125rem;
+      color: var(--text-2);
+      font-weight: 500;
+      margin-top: .2rem;
+    }
+
+    /* ===== PAIN ===== */
+    #pain { background: #fff; }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      max-width: 800px;
+      margin: 2.5rem auto 0;
+    }
+    .pain-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.125rem 1.375rem;
+      background: var(--red-light);
+      border: 1px solid var(--red-border);
+      border-radius: var(--radius);
+      transition: box-shadow .2s;
+    }
+    .pain-card:hover { box-shadow: var(--shadow-md); }
+    .pain-em { font-size: 1.4rem; flex-shrink: 0; margin-top: .1rem; }
+    .pain-text {
+      font-size: .9375rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .pain-text small {
+      display: block;
+      font-size: .85rem;
+      font-weight: 400;
+      color: var(--text-2);
+      margin-top: .25rem;
+    }
+    .pain-bridge {
+      margin-top: 2.5rem;
+      padding: 2rem 1.75rem;
+      background: linear-gradient(135deg, var(--blue) 0%, #0D5095 100%);
+      border-radius: var(--radius-lg);
+      color: #fff;
+      text-align: center;
+    }
+    .pain-bridge p {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      line-height: 1.75;
+    }
+    .pain-bridge em {
+      font-style: normal;
+      color: #FFD080;
+    }
+
+    /* ===== VALUE ===== */
+    #value { background: var(--bg); }
+    .value-blocks { display: flex; flex-direction: column; gap: 4rem; margin-top: 3rem; }
+    .vb {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .vb-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: .75rem;
+    }
+    .vb:nth-child(1) .vb-num { background: var(--blue-light); color: var(--blue); }
+    .vb:nth-child(2) .vb-num { background: var(--green-light); color: var(--green); }
+    .vb-title {
+      font-size: 1.625rem;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -.025em;
+      margin-bottom: .625rem;
+    }
+    .vb-desc {
+      font-size: .9375rem;
+      color: var(--text-2);
+      line-height: 1.85;
+    }
+
+    /* Before/After table */
+    .ba-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      font-size: .875rem;
+    }
+    .ba-table thead th {
+      padding: .6875rem 1rem;
+      font-weight: 700;
+      font-size: .8rem;
+      letter-spacing: .06em;
+    }
+    .ba-table thead th.th-before {
+      background: #FEE2E2;
+      color: #991B1B;
+      text-align: left;
+    }
+    .ba-table thead th.th-after {
+      background: var(--green-light);
+      color: #065F46;
+      text-align: left;
+    }
+    .ba-table tbody tr:not(:last-child) td { border-bottom: 1px solid var(--border); }
+    .ba-table tbody td {
+      padding: .8125rem 1rem;
+      background: #fff;
+      vertical-align: middle;
+      line-height: 1.5;
+    }
+    .ba-table tbody td.before-cell {
+      background: #FFFAFA;
+      color: #7F1D1D;
+      border-right: 1px solid var(--border);
+    }
+    .ba-table tbody td.after-cell {
+      color: #064E3B;
+      font-weight: 500;
+    }
+
+    /* Learning flow */
+    .flow-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .flow-step {
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: #fff;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .flow-step:nth-child(1) { border-color: #BFDBFE; background: #F0F8FF; }
+    .flow-step:nth-child(3) { border-color: #A7F3D0; background: #F0FDF8; }
+    .flow-step:nth-child(5) { border-color: #FDE68A; background: #FFFBEB; }
+    .flow-icon { font-size: 2rem; margin-bottom: .625rem; }
+    .flow-title { font-size: .9375rem; font-weight: 700; margin-bottom: .375rem; }
+    .flow-desc { font-size: .8125rem; color: var(--text-2); line-height: 1.65; }
+    .flow-arrow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      color: var(--text-3);
+      padding: .375rem 0;
+    }
+
+    /* ===== FEATURES ===== */
+    #features { background: #fff; }
+    .feat-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.125rem;
+      margin-top: 2.5rem;
+    }
+    .feat-card {
+      padding: 1.375rem 1.5rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .feat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .feat-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1875rem;
+      margin-bottom: .875rem;
+    }
+    .feat-name { font-size: .9375rem; font-weight: 700; margin-bottom: .375rem; }
+    .feat-desc { font-size: .85rem; color: var(--text-2); line-height: 1.7; }
+
+    /* ===== TARGETS ===== */
+    #targets {
+      background: linear-gradient(160deg, #EFF6FF 0%, var(--bg) 100%);
+    }
+    .tgt-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .tgt-card {
+      padding: 2rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s;
+    }
+    .tgt-card:hover { box-shadow: var(--shadow-lg); }
+    .tgt-card:nth-child(1) { border-top: 4px solid var(--blue); }
+    .tgt-card:nth-child(2) { border-top: 4px solid var(--green); }
+    .tgt-role {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: var(--text-3);
+      text-transform: uppercase;
+      margin-bottom: .375rem;
+    }
+    .tgt-persona {
+      font-size: 1.0625rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.45;
+    }
+    .tgt-benefits { display: flex; flex-direction: column; gap: .875rem; }
+    .tgt-b {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      font-size: .9rem;
+      line-height: 1.65;
+    }
+    .chk {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .625rem;
+      font-weight: 700;
+      margin-top: .175rem;
+    }
+    .tgt-card:nth-child(1) .chk { background: var(--blue-light); color: var(--blue); }
+    .tgt-card:nth-child(2) .chk { background: var(--green-light); color: var(--green); }
+
+    /* ===== CTA ===== */
+    #cta {
+      background: linear-gradient(140deg, var(--blue) 0%, #0B4A8A 100%);
+    }
+    .cta-inner {
+      text-align: center;
+      color: #fff;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .cta-label-badge {
+      display: inline-block;
+      padding: .25rem .9rem;
+      background: rgba(255,255,255,.18);
+      border-radius: 999px;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      margin-bottom: 1.25rem;
+    }
+    .cta-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -.025em;
+      margin-bottom: 1rem;
+    }
+    .cta-desc {
+      font-size: 1rem;
+      line-height: 1.85;
+      opacity: .85;
+      margin-bottom: 2.5rem;
+    }
+    .cta-btns { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .cta-trust {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.25rem;
+      font-size: .8125rem;
+      opacity: .65;
+    }
+    .cta-trust span { display: flex; align-items: center; gap: .375rem; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #0E1A2E;
+      color: rgba(255,255,255,.45);
+      padding: 2.25rem 0;
+      font-size: .875rem;
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: .875rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-size: 1.125rem;
+      font-weight: 900;
+      color: rgba(255,255,255,.8);
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .footer-links a { color: rgba(255,255,255,.45); transition: color .2s; }
+    .footer-links a:hover { color: rgba(255,255,255,.85); }
+
+    /* ===== FADE-IN ===== */
+    .fi {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .fi.in { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (min-width: 560px) {
+      .pain-grid { grid-template-columns: 1fr 1fr; }
+      .feat-grid { grid-template-columns: 1fr 1fr; }
+      .flow-wrap { flex-direction: row; align-items: stretch; }
+      .flow-arrow { padding: 0; writing-mode: horizontal-tb; }
+      .flow-step { flex: 1; }
+    }
+    @media (min-width: 768px) {
+      .hdr-nav { display: flex; }
+      .vb { grid-template-columns: 1fr 1fr; }
+      .tgt-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 1024px) {
+      .feat-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ======== HEADER ======== -->
+<header id="hdr">
+  <div class="wrap">
+    <div class="hdr-inner">
+      <div class="logo">Care<b>Learning</b></div>
+      <nav class="hdr-nav">
+        <a href="#pain">課題</a>
+        <a href="#value">特長</a>
+        <a href="#features">機能</a>
+        <a href="#targets">対象</a>
+      </nav>
+      <a href="#cta" class="btn btn-fill">無料デモを見る →</a>
+    </div>
+  </div>
+</header>
+
+<!-- ======== HERO ======== -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        介護施設向け法定研修管理LMS
+      </div>
+      <h1 class="hero-title">
+        法定研修の手間を、<em>ゼロに。</em><br>
+        学びを、<em>本物に。</em>
+      </h1>
+      <p class="hero-sub">
+        研修資料の準備・受講記録の集計・監査用書類の作成——<br>
+        管理者を苦しめてきたすべての手作業を自動化します。<br>
+        そして、形だけでない、本当に身につく研修体験を届けます。
+      </p>
+      <div class="hero-cta-row">
+        <a href="#cta" class="btn btn-fill btn-lg">無料デモを申し込む →</a>
+        <a href="#value" class="btn btn-outline btn-lg">詳しく見る</a>
+      </div>
+      <p class="hero-note">※ 初期費用無料・導入サポート付き・最短2週間で運用開始</p>
+      <div class="hero-kpis">
+        <div>
+          <div class="kpi-num">100<span>%</span></div>
+          <div class="kpi-label">法定研修要件網羅</div>
+        </div>
+        <div>
+          <div class="kpi-num">0<span>分</span></div>
+          <div class="kpi-label">監査書類の準備時間</div>
+        </div>
+        <div>
+          <div class="kpi-num">3<span>ステップ</span></div>
+          <div class="kpi-label">で学びが現場に定着</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== PROBLEM ======== -->
+<section id="pain">
+  <div class="wrap">
+    <div class="center fi">
+      <div class="label orange">PROBLEM</div>
+      <h2 class="sec-title">こんな悩み、ありませんか？</h2>
+      <p class="sec-lead">介護現場の法定研修は「管理の形骸化」と「学習の形骸化」という二重の問題を抱えています。</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card fi">
+        <div class="pain-em">📋</div>
+        <div class="pain-text">
+          ExcelやWORDで管理していて集計が大変
+          <small>年度末・監査前に慌てて書類をまとめる毎年の地獄</small>
+        </div>
+      </div>
+      <div class="pain-card fi">
+        <div class="pain-em">📅</div>
+        <div class="pain-text">
+          日程調整と会場確保が毎回手間
+          <small>参加できないスタッフが出るたびに補講対応が発生する</small>
+        </div>
+      </div>
+      <div class="pain-card fi">
+        <div class="pain-em">😓</div>
+        <div class="pain-text">
+          未受講者を追いかけるのが苦痛
+          <small>誰が受けていないか把握しきれず、声かけに時間が奪われる</small>
+        </div>
+      </div>
+      <div class="pain-card fi">
+        <div class="pain-em">🗂️</div>
+        <div class="pain-text">
+          監査のたびに書類作成で残業
+          <small>実施記録・出席者名簿・確認テスト結果を一から整理する</small>
+        </div>
+      </div>
+      <div class="pain-card fi">
+        <div class="pain-em">😴</div>
+        <div class="pain-text">
+          研修を受けても何も身についていない
+          <small>「聞いているだけ」で終わり、現場の行動がいつまでも変わらない</small>
+        </div>
+      </div>
+      <div class="pain-card fi">
+        <div class="pain-em">🏢</div>
+        <div class="pain-text">
+          複数施設の状況がリアルタイムに見えない
+          <small>各施設からの報告を待つだけで、本部から全体を把握できない</small>
+        </div>
+      </div>
+    </div>
+    <div class="pain-bridge fi">
+      <p>
+        これらはすべて、<em>「管理の仕組みがない」</em>から起きています。<br>
+        Care Learningは、管理の手間をゼロにし、<em>本当に身につく研修体験</em>を実現する仕組みを提供します。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ======== VALUE ======== -->
+<section id="value">
+  <div class="wrap">
+    <div class="center fi">
+      <div class="label">CORE VALUE</div>
+      <h2 class="sec-title">Care Learning の2つの柱</h2>
+    </div>
+    <div class="value-blocks">
+
+      <!-- Value 1 -->
+      <div class="vb fi">
+        <div>
+          <div class="vb-num">1</div>
+          <h3 class="vb-title">管理負担ゼロ</h3>
+          <p class="vb-desc">
+            施設管理者が手作業でやっていたすべての作業を自動化。
+            研修の準備から監査対応まで、もう時間を奪われません。
+          </p>
+        </div>
+        <div>
+          <table class="ba-table">
+            <thead>
+              <tr>
+                <th class="th-before">😰 今まで（Before）</th>
+                <th class="th-after">✅ これから（After）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="before-cell">研修資料の準備・印刷</td>
+                <td class="after-cell">コンテンツ用意済み、割り当てるだけ</td>
+              </tr>
+              <tr>
+                <td class="before-cell">日程調整・会場設定</td>
+                <td class="after-cell">不要（各自がスマホ・PCで受講）</td>
+              </tr>
+              <tr>
+                <td class="before-cell">出席確認・受講記録</td>
+                <td class="after-cell">自動記録・リアルタイム反映</td>
+              </tr>
+              <tr>
+                <td class="before-cell">監査用書類の作成</td>
+                <td class="after-cell">ボタン一つでPDF出力</td>
+              </tr>
+              <tr>
+                <td class="before-cell">未受講者への声かけ</td>
+                <td class="after-cell">ダッシュボードで一目瞭然</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Value 2 -->
+      <div class="vb fi">
+        <div>
+          <div class="vb-num" style="background:var(--green-light);color:var(--green)">2</div>
+          <h3 class="vb-title">本当に身につく学習体験</h3>
+          <p class="vb-desc">
+            インストラクショナルデザインに基づく3ステップで、
+            「やった」だけでなく「身についた」研修を実現します。
+            現場の行動変容につながる設計です。
+          </p>
+        </div>
+        <div>
+          <div class="flow-wrap">
+            <div class="flow-step">
+              <div class="flow-icon">🎞️</div>
+              <div class="flow-title">スライド学習</div>
+              <div class="flow-desc">動画と組み合わせた<br>わかりやすいインプット</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="flow-icon">📝</div>
+              <div class="flow-title">理解度テスト</div>
+              <div class="flow-desc">多肢選択・自動採点・<br>解説付きで定着を確認</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="flow-icon">🚀</div>
+              <div class="flow-title">アクションプラン</div>
+              <div class="flow-desc">研修後の行動計画を記入<br>現場への転移を促進</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======== FEATURES ======== -->
+<section id="features">
+  <div class="wrap">
+    <div class="center fi">
+      <div class="label">FEATURES</div>
+      <h2 class="sec-title">主な機能</h2>
+      <p class="sec-lead">法定研修管理に必要なすべての機能を、一つのプラットフォームで。</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card fi">
+        <div class="feat-icon" style="background:#EBF4FF">📅</div>
+        <div class="feat-name">年間研修計画</div>
+        <div class="feat-desc">タイムラインUIで年間スケジュールを視覚管理。同一コースの複数回実施に対応。</div>
+      </div>
+      <div class="feat-card fi">
+        <div class="feat-icon" style="background:var(--green-light)">📊</div>
+        <div class="feat-name">進捗ダッシュボード</div>
+        <div class="feat-desc">個人・施設・法人全体の3段階で完了率をリアルタイム可視化。未受講者を即把握。</div>
+      </div>
+      <div class="feat-card fi">
+        <div class="feat-icon" style="background:#FFFBEB">🖨️</div>
+        <div class="feat-name">監査PDF出力</div>
+        <div class="feat-desc">法定研修の実施状況を施設単位・法人単位でボタン一つでPDF生成。</div>
+      </div>
+      <div class="feat-card fi">
+        <div class="feat-icon" style="background:#F3F0FF">🎬</div>
+        <div class="feat-name">マルチメディアコンテンツ</div>
+        <div class="feat-desc">スライド＋動画の組み合わせで、わかりやすいeラーニングコンテンツを提供。</div>
+      </div>
+      <div class="feat-card fi">
+        <div class="feat-icon" style="background:var(--orange-light)">✅</div>
+        <div class="feat-name">理解度テスト</div>
+        <div class="feat-desc">多肢選択式の自動採点テスト。解説付きで理解を深め、記録として保存。</div>
+      </div>
+      <div class="feat-card fi">
+        <div class="feat-icon" style="background:var(--green-light)">✏️</div>
+        <div class="feat-name">アクションプラン</div>
+        <div class="feat-desc">研修後の行動計画を記入・保存。学んだことを現場で実践する仕組みを作る。</div>
+      </div>
+      <div class="feat-card fi">
+        <div class="feat-icon" style="background:#EBF4FF">🏢</div>
+        <div class="feat-name">複数施設一元管理</div>
+        <div class="feat-desc">法人本部が全施設の状況を一画面で把握。施設間の進捗比較も可能。</div>
+      </div>
+      <div class="feat-card fi">
+        <div class="feat-icon" style="background:#FFFBEB">📱</div>
+        <div class="feat-name">スマートフォン対応</div>
+        <div class="feat-desc">隙間時間にスマホで受講。場所を選ばずいつでも学習可能なモバイル対応設計。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== TARGETS ======== -->
+<section id="targets">
+  <div class="wrap">
+    <div class="center fi">
+      <div class="label">FOR WHOM</div>
+      <h2 class="sec-title">こんな方に選ばれています</h2>
+    </div>
+    <div class="tgt-grid">
+      <div class="tgt-card fi">
+        <div class="tgt-role">法人本部 · 理事長 · 事務局長</div>
+        <div class="tgt-persona">「複数施設の研修状況を、本部から一元管理したい」</div>
+        <div class="tgt-benefits">
+          <div class="tgt-b">
+            <div class="chk">✓</div>
+            <span>全施設の受講完了率をリアルタイムで確認。報告を待つ必要がない。</span>
+          </div>
+          <div class="tgt-b">
+            <div class="chk">✓</div>
+            <span>法人単位の監査PDF出力で、コンプライアンス対応が格段に楽になる。</span>
+          </div>
+          <div class="tgt-b">
+            <div class="chk">✓</div>
+            <span>会計年度開始月の設定で、法人ごとの運用に柔軟に対応。</span>
+          </div>
+          <div class="tgt-b">
+            <div class="chk">✓</div>
+            <span>施設間の進捗比較で、支援が必要な施設を早期発見できる。</span>
+          </div>
+        </div>
+      </div>
+      <div class="tgt-card fi">
+        <div class="tgt-role">施設管理者 · 施設長</div>
+        <div class="tgt-persona">「日常業務の合間に研修管理をしていて、限界を感じている」</div>
+        <div class="tgt-benefits">
+          <div class="tgt-b">
+            <div class="chk">✓</div>
+            <span>研修の準備・記録・フォローがすべて自動化。管理業務から解放される。</span>
+          </div>
+          <div class="tgt-b">
+            <div class="chk">✓</div>
+            <span>未受講スタッフをダッシュボードで即確認。声かけのタイミングを逃さない。</span>
+          </div>
+          <div class="tgt-b">
+            <div class="chk">✓</div>
+            <span>監査前の慌ただしい書類作成がゼロ。ボタン一つでPDF完成。</span>
+          </div>
+          <div class="tgt-b">
+            <div class="chk">✓</div>
+            <span>スタッフのアクションプランで、研修が現場の行動変容につながる。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== CTA ======== -->
+<section id="cta">
+  <div class="wrap">
+    <div class="cta-inner fi">
+      <div class="cta-label-badge">CONTACT</div>
+      <h2 class="cta-title">まずは、デモ画面を<br>見てみませんか？</h2>
+      <p class="cta-desc">
+        実際の管理画面・受講画面をご覧いただけます。<br>
+        導入に関するご質問も、お気軽にどうぞ。
+      </p>
+      <div class="cta-btns">
+        <a href="/school-application" class="btn btn-white btn-lg">無料デモを申し込む →</a>
+        <a href="mailto:info@carelearning.jp" class="btn btn-ghost-white btn-lg">メールで問い合わせる</a>
+      </div>
+      <div class="cta-trust">
+        <span>✓ 初期費用無料</span>
+        <span>✓ 導入サポート付き</span>
+        <span>✓ 最短2週間で運用開始</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FOOTER ======== -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-logo">CareL<span style="opacity:.5">earning</span></div>
+      <div class="footer-links">
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">利用規約</a>
+        <a href="#cta">お問い合わせ</a>
+      </div>
+      <div>&copy; 2026 Care Learning. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- Fade-in on scroll ----
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+  document.querySelectorAll('.fi').forEach((el, i) => {
+    el.style.transitionDelay = (i % 5) * 70 + 'ms';
+    io.observe(el);
+  });
+
+  // ---- Header shadow on scroll ----
+  const hdr = document.getElementById('hdr');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive: true });
+</script>
+
+</body>
+</html>
