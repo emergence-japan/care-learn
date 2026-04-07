@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FadeIn } from "@/lib/motion";
 import {
   Smartphone,
@@ -9,6 +10,7 @@ import {
   PenLine,
   Building2,
 } from "lucide-react";
+import { MobileLessonMockup, DashboardMockup, AuditDocMockup } from "./FeatureMockups";
 
 const primary = [
   {
@@ -22,6 +24,7 @@ const primary = [
     badge:   "スタッフ体験",
     badgeColor: "var(--orange-500)",
     badgeBg:    "#FFF7ED",
+    Mockup:  MobileLessonMockup,
   },
   {
     Icon:    BarChart3,
@@ -34,6 +37,7 @@ const primary = [
     badge:   "管理者体験",
     badgeColor: "var(--blue-700)",
     badgeBg:    "var(--blue-50)",
+    Mockup:  DashboardMockup,
   },
   {
     Icon:    FileText,
@@ -46,16 +50,19 @@ const primary = [
     badge:   "コンプライアンス",
     badgeColor: "var(--green-700)",
     badgeBg:    "#DCFCE7",
+    Mockup:  AuditDocMockup,
   },
 ];
 
 const secondary = [
   {
-    Icon:  CalendarDays,
-    title: "年間研修計画",
-    desc:  "タイムラインUIで年間スケジュールを視覚管理。",
-    bg:    "var(--blue-50)",
-    color: "var(--blue-600)",
+    Icon:       CalendarDays,
+    title:      "年間研修計画",
+    desc:       "タイムラインUIで年間スケジュールを視覚管理。",
+    bg:         "var(--blue-50)",
+    color:      "var(--blue-600)",
+    screenshot: "/images/mockups/demo_施設管理 - 研修計画.png",
+    screenshotAlt: "年間研修計画のタイムライン画面",
   },
   {
     Icon:  PlayCircle,
@@ -79,11 +86,13 @@ const secondary = [
     color: "var(--green-600)",
   },
   {
-    Icon:  Building2,
-    title: "複数施設の一元管理",
-    desc:  "法人本部が全施設の状況を一画面で比較・把握。",
-    bg:    "var(--blue-50)",
-    color: "var(--blue-600)",
+    Icon:       Building2,
+    title:      "複数施設の一元管理",
+    desc:       "法人本部が全施設の状況を一画面で比較・把握。",
+    bg:         "var(--blue-50)",
+    color:      "var(--blue-600)",
+    screenshot: "/images/mockups/demo_施設管理 - 研修管理.png",
+    screenshotAlt: "施設別研修管理画面",
   },
 ];
 
@@ -109,7 +118,7 @@ export default function FeaturesSection() {
             marginBottom:        "1.25rem",
           }}
         >
-          {primary.map(({ Icon, label, title, desc, bg, iconBg, color, badge, badgeColor, badgeBg }, i) => (
+          {primary.map(({ Icon, label, title, desc, bg, iconBg, color, badge, badgeColor, badgeBg, Mockup }, i) => (
             <FadeIn key={i} delay={i * 0.08}>
               <div
                 style={{
@@ -157,6 +166,7 @@ export default function FeaturesSection() {
                 <p style={{ fontSize: "0.875rem", color: "var(--text-2)", lineHeight: 1.75 }}>
                   {desc}
                 </p>
+                <Mockup />
               </div>
             </FadeIn>
           ))}
@@ -170,7 +180,7 @@ export default function FeaturesSection() {
             gap:                 "1rem",
           }}
         >
-          {secondary.map(({ Icon, title, desc, bg, color }, i) => (
+          {secondary.map(({ Icon, title, desc, bg, color, screenshot, screenshotAlt }, i) => (
             <FadeIn key={i} delay={i * 0.05}>
               <div
                 style={{
@@ -181,6 +191,7 @@ export default function FeaturesSection() {
                   padding:      "1.25rem",
                   height:       "100%",
                   boxSizing:    "border-box",
+                  overflow:     "hidden",
                 }}
               >
                 <div
@@ -203,6 +214,25 @@ export default function FeaturesSection() {
                 <p style={{ fontSize: "0.8125rem", color: "var(--text-2)", lineHeight: 1.65 }}>
                   {desc}
                 </p>
+                {screenshot && (
+                  <div
+                    style={{
+                      marginTop:    "0.875rem",
+                      borderRadius: "8px",
+                      overflow:     "hidden",
+                      border:       "1px solid var(--border)",
+                      lineHeight:   0,
+                    }}
+                  >
+                    <Image
+                      src={screenshot}
+                      alt={screenshotAlt ?? title}
+                      width={800}
+                      height={500}
+                      style={{ width: "100%", height: "auto", display: "block" }}
+                    />
+                  </div>
+                )}
               </div>
             </FadeIn>
           ))}
