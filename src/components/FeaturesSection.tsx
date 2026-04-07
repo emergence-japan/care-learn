@@ -66,10 +66,14 @@ const secondary = [
   },
   {
     Icon:  PlayCircle,
-    title: "スライド＋動画コンテンツ",
+    title: "スライド＋動画教材",
     desc:  "わかりやすいマルチメディアeラーニングを提供。",
     bg:    "#F5F3FF",
     color: "#7C3AED",
+    screenshots: [
+      { src: "/images/mockups/スライド.png", alt: "スライド教材画面" },
+      { src: "/images/mockups/動画.png",     alt: "動画教材画面" },
+    ],
   },
   {
     Icon:  CheckSquare,
@@ -77,6 +81,8 @@ const secondary = [
     desc:  "多肢選択式テスト＋解説つきで確実な定着を支援。",
     bg:    "var(--blue-50)",
     color: "var(--blue-600)",
+    screenshot: "/images/mockups/理解度.png",
+    screenshotAlt: "理解度テスト・自動採点画面",
   },
   {
     Icon:  PenLine,
@@ -84,6 +90,8 @@ const secondary = [
     desc:  "研修後の行動計画を記録。学びを現場の実践に。",
     bg:    "var(--green-50)",
     color: "var(--green-600)",
+    screenshot: "/images/mockups/行動宣言.png",
+    screenshotAlt: "アクションプラン・行動宣言画面",
   },
   {
     Icon:       Building2,
@@ -91,8 +99,8 @@ const secondary = [
     desc:       "法人本部が全施設の状況を一画面で比較・把握。",
     bg:         "var(--blue-50)",
     color:      "var(--blue-600)",
-    screenshot: "/images/mockups/demo_施設管理 - 研修管理.png",
-    screenshotAlt: "施設別研修管理画面",
+    screenshot: "/images/mockups/施設管理一覧.png",
+    screenshotAlt: "複数施設一元管理画面",
   },
 ];
 
@@ -163,7 +171,7 @@ export default function FeaturesSection() {
                 <h3 style={{ fontSize: "1.0625rem", fontWeight: 800, marginBottom: "0.75rem", color: "var(--text)" }}>
                   {title}
                 </h3>
-                <p style={{ fontSize: "0.875rem", color: "var(--text-2)", lineHeight: 1.75 }}>
+                <p style={{ fontSize: "0.875rem", color: "var(--text-2)", lineHeight: 1.75, minHeight: "6.25rem" }}>
                   {desc}
                 </p>
                 <Mockup />
@@ -180,7 +188,7 @@ export default function FeaturesSection() {
             gap:                 "1rem",
           }}
         >
-          {secondary.map(({ Icon, title, desc, bg, color, screenshot, screenshotAlt }, i) => (
+          {secondary.map(({ Icon, title, desc, bg, color, screenshot, screenshotAlt, screenshots }, i) => (
             <FadeIn key={i} delay={i * 0.05}>
               <div
                 style={{
@@ -231,6 +239,30 @@ export default function FeaturesSection() {
                       height={500}
                       style={{ width: "100%", height: "auto", display: "block" }}
                     />
+                  </div>
+                )}
+                {screenshots && (
+                  <div style={{ marginTop: "0.875rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                    {screenshots.map(({ src, alt }) => (
+                      <div
+                        key={src}
+                        style={{
+                          flex:         1,
+                          borderRadius: "8px",
+                          overflow:     "hidden",
+                          border:       "1px solid var(--border)",
+                          lineHeight:   0,
+                        }}
+                      >
+                        <Image
+                          src={src}
+                          alt={alt}
+                          width={400}
+                          height={300}
+                          style={{ width: "100%", height: "auto", display: "block" }}
+                        />
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
