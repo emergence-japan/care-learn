@@ -1,7 +1,24 @@
 import { FadeIn } from "@/lib/motion";
 import { FileDown, BellRing, CheckCircle2 } from "lucide-react";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
-const courses = [
+interface Course {
+  num: string;
+  title: string;
+  color: string;
+}
+
+interface Notification {
+  type: string;
+  title: string;
+  body: string;
+  time: string;
+  color: string;
+  bg: string;
+  border: string;
+}
+
+const courses: Course[] = [
   { num: "01", title: "ハラスメント対策研修",       color: "#DC2626" },
   { num: "02", title: "感染症・食中毒予防研修",     color: "var(--green-600)" },
   { num: "03", title: "プライバシー保護研修",       color: "#0891B2" },
@@ -19,100 +36,85 @@ const courses = [
   { num: "15", title: "緊急時対応研修",             color: "#D97706" },
 ];
 
-const pillarBadge = (num: number, bg: string, color: string) => (
-  <div
-    style={{
-      display:        "inline-flex",
-      alignItems:     "center",
-      justifyContent: "center",
-      width:  44,
-      height: 44,
-      borderRadius:   "50%",
-      background:     bg,
-      color,
-      fontSize:       "1.125rem",
-      fontWeight:     700,
-      marginBottom:   "1rem",
-    }}
-  >
-    {num}
-  </div>
-);
+const notifications: Notification[] = [
+  {
+    type:   "通知",
+    title:  "法改正アラート",
+    body:   "身体拘束廃止に関する省令が改正されました。研修内容の確認をおすすめします。",
+    time:   "たった今",
+    color:  "#DC2626",
+    bg:     "#FEF2F2",
+    border: "#FECACA",
+  },
+  {
+    type:   "更新完了",
+    title:  "コンテンツ自動更新",
+    body:   "感染対策コースが最新の厚生労働省ガイドラインに対応しました。",
+    time:   "昨日",
+    color:  "var(--green-700)",
+    bg:     "#F0FDF4",
+    border: "#A7F3D0",
+  },
+];
+
+const auditDocs = [
+  "受講履歴一覧",
+  "修了証（スタッフ別）",
+  "出席記録・確認署名",
+  "科目別完了率レポート",
+];
+
+function PillarBadge({ num, bg, color }: { num: number; bg: string; color: string }) {
+  return (
+    <div className="pillar-badge" style={{ background: bg, color }}>
+      {num}
+    </div>
+  );
+}
+
+function PillarTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h3 className="pillar-title">{children}</h3>
+  );
+}
+
+function PillarLead({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="pillar-lead">{children}</p>
+  );
+}
+
+function PillarDivider() {
+  return <div style={{ borderTop: "1px solid var(--border)", marginBottom: "4rem" }} />;
+}
 
 export default function ValueSection() {
   return (
     <section id="value" style={{ padding: "6rem 0", background: "#fff" }}>
       <div className="container">
 
-        {/* Section header */}
-        <FadeIn style={{ textAlign: "center", marginBottom: "4rem" }}>
-          <div className="label">CORE VALUE</div>
-          <h2 className="sec-title">Care Learning の3つの強み</h2>
-          <p className="sec-lead" style={{ margin: "0.75rem auto 0", maxWidth: "520px", textAlign: "center" }}>
-            監査対応・法改正への備え・全科目網羅。管理者の「困った」をまるごと解決します。
-          </p>
-        </FadeIn>
+        <SectionHeader
+          label="CORE VALUE"
+          title="Care Learning の3つの強み"
+          lead="監査対応・法改正への備え・全科目網羅。管理者の「困った」をまるごと解決します。"
+          marginBottom="4rem"
+        />
 
-        {/* ── Pillar 1 ── */}
+        {/* ── 強み1: 監査書類 ── */}
         <FadeIn style={{ marginBottom: "4rem" }}>
-          <div
-            style={{
-              display:             "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap:                 "3rem",
-              alignItems:          "start",
-            }}
-          >
+          <div className="grid-2col">
             <div>
-              {pillarBadge(1, "var(--blue-100)", "var(--blue-700)")}
-              <h3
-                style={{
-                  fontSize:      "clamp(1.375rem, 2.5vw, 1.75rem)",
-                  fontWeight:    700,
-                  letterSpacing: "-0.025em",
-                  marginBottom:  "0.75rem",
-                }}
-              >
-                監査に必要な書類が、
-                <br />1クリックで揃う
-              </h3>
-              <p style={{ fontSize: "0.9375rem", color: "var(--text-2)", lineHeight: 1.85 }}>
+              <PillarBadge num={1} bg="var(--blue-100)" color="var(--blue-700)" />
+              <PillarTitle>監査に必要な書類が、<br />1クリックで揃う</PillarTitle>
+              <PillarLead>
                 受講履歴・修了証・出席記録をシステムが自動で帳票化。
                 監査当日に慌てません。施設単位・法人単位、両方の出力に対応しています。
-              </p>
+              </PillarLead>
             </div>
 
-            {/* Visual: document output card */}
-            <div
-              style={{
-                borderRadius: "var(--r-lg)",
-                overflow:     "hidden",
-                border:       "1px solid var(--border)",
-                boxShadow:    "var(--shadow-sm)",
-                background:   "#fff",
-              }}
-            >
-              <div
-                style={{
-                  background: "linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%)",
-                  padding:    "1.25rem 1.5rem",
-                  display:    "flex",
-                  alignItems: "center",
-                  gap:        "0.75rem",
-                  borderBottom: "1px solid #BFDBFE",
-                }}
-              >
-                <div
-                  style={{
-                    width:          40,
-                    height:         40,
-                    borderRadius:   "10px",
-                    background:     "var(--blue-100)",
-                    display:        "flex",
-                    alignItems:     "center",
-                    justifyContent: "center",
-                  }}
-                >
+            <div className="value-card">
+              <div className="value-card__header">
+                <div className="icon-box icon-box--blue">
                   <FileDown size={20} style={{ color: "var(--blue-700)" }} />
                 </div>
                 <div>
@@ -120,20 +122,15 @@ export default function ValueSection() {
                   <p style={{ fontSize: "0.8rem", color: "var(--text-3)", marginTop: "0.15rem" }}>1クリックでPDF生成</p>
                 </div>
               </div>
-              {[
-                "受講履歴一覧",
-                "修了証（スタッフ別）",
-                "出席記録・確認署名",
-                "科目別完了率レポート",
-              ].map((doc, i) => (
+              {auditDocs.map((doc, i) => (
                 <div
-                  key={i}
+                  key={doc}
                   style={{
                     display:      "flex",
                     alignItems:   "center",
                     gap:          "0.75rem",
                     padding:      "0.8125rem 1.5rem",
-                    borderBottom: i < 3 ? "1px solid var(--border)" : "none",
+                    borderBottom: i < auditDocs.length - 1 ? "1px solid var(--border)" : "none",
                     background:   "#fff",
                   }}
                 >
@@ -145,60 +142,23 @@ export default function ValueSection() {
           </div>
         </FadeIn>
 
-        <div style={{ borderTop: "1px solid var(--border)", marginBottom: "4rem" }} />
+        <PillarDivider />
 
-        {/* ── Pillar 2 ── */}
+        {/* ── 強み2: 法改正通知 ── */}
         <FadeIn style={{ marginBottom: "4rem" }}>
-          <div
-            style={{
-              display:             "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap:                 "3rem",
-              alignItems:          "start",
-            }}
-          >
+          <div className="grid-2col">
             <div>
-              {pillarBadge(2, "var(--green-100)", "var(--green-700)")}
-              <h3
-                style={{
-                  fontSize:      "clamp(1.375rem, 2.5vw, 1.75rem)",
-                  fontWeight:    700,
-                  letterSpacing: "-0.025em",
-                  marginBottom:  "0.75rem",
-                }}
-              >
-                法改正があれば、
-                <br />すぐにお知らせ
-              </h3>
-              <p style={{ fontSize: "0.9375rem", color: "var(--text-2)", lineHeight: 1.85 }}>
+              <PillarBadge num={2} bg="var(--green-100)" color="var(--green-700)" />
+              <PillarTitle>法改正があれば、<br />すぐにお知らせ</PillarTitle>
+              <PillarLead>
                 厚生労働省の通知をAIが常時モニタリング。
                 研修内容に影響する変更があれば、管理者に即通知します。
                 法改正への対応が後手に回ることがなくなります。
-              </p>
+              </PillarLead>
             </div>
 
-            {/* Visual: notification card */}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-              {[
-                {
-                  type:  "通知",
-                  title: "法改正アラート",
-                  body:  "身体拘束廃止に関する省令が改正されました。研修内容の確認をおすすめします。",
-                  time:  "たった今",
-                  color: "#DC2626",
-                  bg:    "#FEF2F2",
-                  border: "#FECACA",
-                },
-                {
-                  type:  "更新完了",
-                  title: "コンテンツ自動更新",
-                  body:  "感染対策コースが最新の厚生労働省ガイドラインに対応しました。",
-                  time:  "昨日",
-                  color: "var(--green-700)",
-                  bg:    "#F0FDF4",
-                  border: "#A7F3D0",
-                },
-              ].map((n, i) => (
+              {notifications.map((n, i) => (
                 <div
                   key={i}
                   style={{
@@ -227,7 +187,7 @@ export default function ValueSection() {
                     <BellRing size={18} style={{ color: n.color }} />
                   </div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.3rem" }}>
+                    <div className="notif-header">
                       <span style={{ fontSize: "0.75rem", fontWeight: 700, color: n.color }}>{n.type}</span>
                       <span style={{ fontSize: "0.75rem", color: "var(--text-3)" }}>{n.time}</span>
                     </div>
@@ -240,39 +200,21 @@ export default function ValueSection() {
           </div>
         </FadeIn>
 
-        <div style={{ borderTop: "1px solid var(--border)", marginBottom: "4rem" }} />
+        <PillarDivider />
 
-        {/* ── Pillar 3 ── */}
+        {/* ── 強み3: 全科目網羅 ── */}
         <FadeIn>
           <div style={{ marginBottom: "2.5rem" }}>
-            {pillarBadge(3, "#FFEDD5", "var(--orange-500)")}
-            <h3
-              style={{
-                fontSize:      "clamp(1.375rem, 2.5vw, 1.75rem)",
-                fontWeight:    700,
-                letterSpacing: "-0.025em",
-                marginBottom:  "0.75rem",
-              }}
-            >
-              これ一本で、
-              <br />法定研修がすべて完結
-            </h3>
-            <p style={{ fontSize: "0.9375rem", color: "var(--text-2)", lineHeight: 1.85, maxWidth: "560px" }}>
+            <PillarBadge num={3} bg="#FFEDD5" color="var(--orange-500)" />
+            <PillarTitle>これ一本で、<br />法定研修がすべて完結</PillarTitle>
+            <p className="pillar-lead" style={{ maxWidth: "560px" }}>
               15科目すべてに動画・スライド・理解度テストを完備。
               外部講師への依頼も、会場手配も不要です。
               必要な研修がひとつのプラットフォームで完結します。
             </p>
           </div>
 
-          {/* Course card grid */}
-          <div
-            style={{
-              display:             "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-              gridAutoRows:        "4.5rem",
-              gap:                 "0.875rem",
-            }}
-          >
+          <div className="grid-courses">
             {courses.map(({ num, title, color }) => (
               <div
                 key={num}
@@ -281,25 +223,12 @@ export default function ValueSection() {
               >
                 <div
                   aria-hidden="true"
-                  style={{
-                    position:      "absolute",
-                    right:         "0.5rem",
-                    bottom:        "-0.25rem",
-                    fontSize:      "3.5rem",
-                    fontWeight:    900,
-                    lineHeight:    1,
-                    color,
-                    opacity:       0.07,
-                    userSelect:    "none",
-                    letterSpacing: "-0.04em",
-                    pointerEvents: "none",
-                  }}
+                  className="course-card__num"
+                  style={{ color, opacity: 0.07 }}
                 >
                   {num}
                 </div>
-                <p style={{ position: "relative", zIndex: 1, fontWeight: 700, fontSize: "0.875rem", lineHeight: 1.45, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                  {title}
-                </p>
+                <p className="course-card__title">{title}</p>
               </div>
             ))}
           </div>

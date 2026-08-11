@@ -6,9 +6,19 @@ import {
   FileWarning,
   BookOpen,
   Building2,
+  type LucideIcon,
 } from "lucide-react";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
-const pains = [
+interface Pain {
+  Icon: LucideIcon;
+  color: string;
+  bg: string;
+  title: string;
+  sub: string;
+}
+
+const pains: Pain[] = [
   {
     Icon:  ClipboardList,
     color: "#DC2626",
@@ -72,19 +82,13 @@ export default function ProblemSection() {
     <section id="pain" style={{ padding: "6rem 0", background: "var(--slate-50)" }}>
       <div className="container">
 
-        {/* Header */}
-        <FadeIn style={{ textAlign: "center", marginBottom: "3rem" }}>
-          <div className="label">PROBLEM</div>
-          <h2 className="sec-title" style={{ marginBottom: "1rem" }}>
-            こんな悩み、ありませんか？
-          </h2>
-          <p className="sec-lead" style={{ margin: "0 auto", textAlign: "center", maxWidth: "560px" }}>
-            介護現場の法定研修は「管理の形骸化」と「学習の形骸化」という
-            二重の問題を抱えています。
-          </p>
-        </FadeIn>
+        <SectionHeader
+          label="PROBLEM"
+          title="こんな悩み、ありませんか？"
+          lead="介護現場の法定研修は「管理の形骸化」と「学習の形骸化」という二重の問題を抱えています。"
+          maxWidth="560px"
+        />
 
-        {/* Pain cards */}
         <div
           style={{
             display:             "grid",
@@ -97,59 +101,23 @@ export default function ProblemSection() {
           {pains.map(({ Icon, color, bg, title, sub }, i) => (
             <FadeIn key={i} delay={i * 0.055}>
               <div className="pain-card">
-                <div
-                  style={{
-                    flexShrink:     0,
-                    width:          40,
-                    height:         40,
-                    borderRadius:   "10px",
-                    background:     bg,
-                    display:        "flex",
-                    alignItems:     "center",
-                    justifyContent: "center",
-                    marginTop:      "0.1rem",
-                  }}
-                >
+                <div className="icon-box" style={{ background: bg, marginTop: "0.1rem" }}>
                   <Icon size={20} style={{ color }} />
                 </div>
                 <div>
                   <p style={{ fontWeight: 600, fontSize: "0.9375rem", lineHeight: 1.5 }}>
                     {title}
                   </p>
-                  <p
-                    style={{
-                      fontSize:   "0.85rem",
-                      color:      "var(--text-2)",
-                      marginTop:  "0.25rem",
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    {sub}
-                  </p>
+                  <p className="pain-card__sub">{sub}</p>
                 </div>
               </div>
             </FadeIn>
           ))}
         </div>
 
-        {/* Bridge message */}
         <FadeIn>
-          <div
-            style={{
-              background:   "linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%)",
-              borderRadius: "var(--r-xl)",
-              padding:      "2.25rem 2.5rem",
-              textAlign:    "center",
-              color:        "#fff",
-            }}
-          >
-            <p
-              style={{
-                fontSize:   "clamp(1rem, 2.5vw, 1.1875rem)",
-                fontWeight: 600,
-                lineHeight: 1.8,
-              }}
-            >
+          <div className="bridge-message">
+            <p className="bridge-message__text">
               これらはすべて、
               <span style={{ color: "#FFD080" }}>「管理の仕組みがない」</span>
               から起きています。
